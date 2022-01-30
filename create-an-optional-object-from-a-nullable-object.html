@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Create an Optional from Null" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="keywords" content="Java 8 Optional,Java 8,Nullable Optional,Nullable Optional Java 8,Nullable Optional Example,Nullable Optional Java 8 Example,Java 8 Optional Example,Create Optional Object,Create an Optional Object,Create an Optional Object in Java 8,Create an Optional Ob" />
+    <title>Create an Optional Object from a Nullable Object</title>    
+    <link rel="stylesheet" type="text/css" href="dist/components/reset.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/site.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/container.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/grid.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/header.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/image.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/menu.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/divider.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/list.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/segment.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/dropdown.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/icon.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/item.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/card.css">
+
+	<style type="text/css">
+		body {
+			background-color: #FFFFFF;
+		}
+
+		.main.container {
+			margin-top: 5em;
+		}
+
+		.ui.footer.segment {
+			margin: 5em 0em 0em;
+			padding: 5em 0em;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="ui fixed inverted menu">
+		<div class="ui container">
+			<a href="index.html" class="header item">
+				Sumiya
+			</a>
+			<a href="index.html" class="item">Home</a>
+		</div>
+	</div>
+
+	<div class="ui main text container">
+
+
+        <section>
+            <div >
+                
+                    <h1>Create an Optional Object from a Nullable Object</h1>
+                <div>
+                    <div>
+                        <section>
+                                <p>
+                                        Java 8 introduced the <code>java.util.Optional&lt;T&gt;</code> class to reflect an optional value.&nbsp;The following example demonstrates how to convert a previously (pre-Java 8) Nullable object to an Optional object Java 8 onwards.
+                                       </p>
+                                       <p>
+                                        The following is a snapshot of a trivial class that has a nullable object middleName. Code Snippets that follow it provide how we provide methods that convert this Nullable object to an Optional object.
+                                       </p>                                      
+                                           
+                                       <pre><code>
+import java.util.Optional;
+                            
+public class Name {
+                            
+    private String middleName;
+                            
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+                            
+    /**
+    * Convert the String object to an Optional&lt;String> object
+    * 
+    * @return an Optional String
+    */
+    public Optional&lt;String> getOptionalMiddleName() {
+        return Optional.ofNullable(middleName);
+    }
+                            
+    /**
+    * 
+    * @return the middle name when it exists, or an empty string when it
+    *         doesn't
+    */
+    public String getMiddleName() {
+        return getOptionalString(middleName);
+    }
+                            
+    /**
+    * @return a string value when it exists or an empty value when it doesn't
+    *         exist
+    */
+    public String getOptionalString(String optional) {
+        return Optional.ofNullable(optional).orElse("");
+    }
+                            
+}					
+
+public class OptionalExample {
+                            
+    public static void main(String[] args) {
+        Name name = new Name();
+        System.out.println("Middle Name: " + name.getOptionalMiddleName());
+        System.out.println("Middle Name: " + name.getOptionalString(name.getMiddleName()));
+        name.setMiddleName("Test");
+        System.out.println("Middle Name: " + name.getOptionalString(name.getMiddleName()));
+    }
+                                
+}</code></pre>
+                                              
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="ui inverted vertical footer segment">
+        <div class="ui center aligned container">
+            <div class="ui stackable inverted divided grid">
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Collections</h4>
+                    <div class="ui inverted link list">
+                        <a href="java.html" class="item">Java</a>
+                        <a href="spring.html" class="item">Spring</a>
+                        <a href="scala.html" class="item">Scala</a>
+                        <a href="akka.html" class="item">Akka</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Collections</h4>
+                    <div class="ui inverted link list">
+                        <a href="cloud.html" class="item">Cloud</a>
+                        <a href="software-engineering.html" class="item">Application Architecture</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header">Contact</h4>
+                    <p>Drop me a message on
+                        <a href="https://www.linkedin.com/in/sumiya">LinkedIn.com</a> if you have suggestions, want to connect, or have any questions.</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <div class="ui horizontal inverted small divided link list">
+                <a class="item" href="help.html">Help</a>
+                <a class="item" href="help.html">Site Map</a>
+                <a class="item" href="https://www.linkedin.com/in/sumiya">Contact</a>
+                <a class="item" href="privacy-policy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

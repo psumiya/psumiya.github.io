@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Reactive Microservice Frameworks for JVM - 2021" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="keywords" content="reactive, microservices, frameworks, jvm" />
+    <title>Reactive Microservice Frameworks for JVM - 2021</title>
+    <link rel="stylesheet" type="text/css" href="dist/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/site.css">
+
+    <link rel="stylesheet" type="text/css" href="dist/components/container.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/header.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/image.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/menu.css">
+
+    <link rel="stylesheet" type="text/css" href="dist/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/list.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/icon.css">
+
+    <link rel="stylesheet" type="text/css" href="dist/components/item.css">
+    <link rel="stylesheet" type="text/css" href="dist/components/card.css">
+
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+        }
+
+        .main.container {
+            margin-top: 5em;
+        }
+
+        .ui.footer.segment {
+            margin: 5em 0em 0em;
+            padding: 5em 0em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ui fixed inverted menu">
+        <div class="ui container">
+            <a href="index.html" class="header item">
+                Sumiya
+            </a>
+            <a href="index.html" class="item">Home</a>
+        </div>
+    </div>
+
+    <div class="ui main text container">
+
+        <h1 class="ui header">
+            Reactive Microservice Frameworks for JVM - 2021
+            <div class="sub header">01/19/2021</div>
+        </h1>
+        <section>            
+            <h2 class="ui header">What are Reactive Microservices?</h2>
+            <p>Reactive microservices are microservices written using a reactive programming model.</p>
+            <p>Wikipedia defines reactive programming as a &quot;programming paradigm concerned with data streams and the propagation
+                of change&quot;. </p>
+            <h3 class="ui header">Reactive Streams</h3>
+            <p>Quoting the original Reactive Streams spec (
+                <a href="http://www.reactive-streams.org/">http://www.reactive-streams.org/</a>), &quot;Reactive Streams is an initiative to provide a standard for
+                asynchronous stream processing with non-blocking back pressure. This encompasses efforts aimed at runtime
+                environments (JVM and JavaScript) as well as network protocols.&quot;.</p>
+            <p>With Java 9, you get Reactive Streams implementation right out of the JDK, no frameworks needed. See
+                <a href="https://docs.oracle.com/javase/9/docs/api/java/util/concurrent/Flow.html">https://docs.oracle.com/javase/9/docs/api/java/util/concurrent/Flow.html</a>
+            </p>
+            <p>The way to think about reactive programs is programs written in an asynchronous manner with backpressure.</p>
+            <h3 class="ui header">Backpressure</h3>
+            <p>Backpressure is a concept in asynchronous programs that helps implement flow control.</p>
+            <p>Consider the following scenario:</p>
+            <ul>
+                <li>I have asynchronous functions, X, Y, and Z, where X invokes Y, Y invokes Z.</li>
+                <li>Suppose threads processing Y are slowed down for a few seconds due to a temporary network issue.</li>
+                <li>When the network recovers, Y floods Z with a high number of calls.</li>
+            </ul>
+            <p>Backpressure comes into picture at this moment. </p>
+            <p>It ensures there is proper flow control baked into the processing such that Z (indirectly) communicates with
+                Y that it is being flooded. Consequently, Y reduces the volume of calls it is sending to Z.</p>
+            <p>As you may notice, the program flows from left to right, but the components on the right have a way to let the components
+                on the left know to slow down when needed.</p>
+            <p>One of the key features of reactive frameworks discussed here is to offer developers the capability of backpressure
+                in a flow without the developer explicitly coding for it.</p>
+            <h2 class="ui header">Why Reactive?</h2>
+            <p>Now, while I can write correct behavior with a traditional, non-asynchronous program, it does lead to wastage
+                of compute resources. Threads would be sitting idle waiting for a network response when they could be doing
+                other tasks.</p>
+            <p>Building asynchronous programs thus ties back to the business goal of efficient utilization of available resources.</p>
+            <h2 class="ui header">Should I refactor my code to a reactive paradigm?</h2>
+            <p>While I definitely recommend using an asynchronous, reactive approach for building new services, I do not recommend
+                re-factoring an existing codebase that is
+                <em>successfully</em> handling production traffic. </p>
+            <p>If your team's answer is always to throw more hardware (higher memory, more cores, more kubernetes nodes or pods, etc.) at any problem
+                regarding load, maybe it is time to revisit your code or solution.</p>
+            <p>My metric for success is dollars spent to maintain a service to achieve a desired throughput. Lower the spend,
+                greater the success.</p>
+            <p>With the explosion of developer resources available to build systems, you can find numerous ways to build a solution
+                to achieve high throughput, some more costlier than others. The successful ones inevitably are built in a
+                manner that ensure you spend less dollars to support them over a long period of time.</p>
+            <p>Having said that, if you are adding new features to an existing codebase, you should still look to leverage the
+                capabilities offered by reactive style of coding.</p>
+            <p>See Reactive Programming here on Wikipedia:
+                <a href="https://en.wikipedia.org/wiki/Reactive_programming">https://en.wikipedia.org/wiki/Reactive_programming</a>
+            </p>
+            <p>Learn about Reactive Streams on Wikipedia:
+                <a href="https://en.wikipedia.org/wiki/Reactive_Streams">https://en.wikipedia.org/wiki/Reactive_Streams</a>
+            </p>
+            <h2 class="ui header">Frameworks</h2>
+            <p>Alright then, here is a short list of frameworks available for developers looking to build reactive microservices
+                in 2021.</p>
+
+            <h3 class="ui header"><u>Spring Reactive</u></h3>
+            From the Spring Portfolio, you can use the reactive stack to build services with massively high number of concurrent connections.
+            Spring WebFlux is the non-blocking equivalent of the blocking, very widely-used, Servlet stack, which works with one request per thread model.
+            <br/><br/>
+            <p><b>Who should use this?</b></p>
+            <p>Teams already comfortable with the Spring ecosystem and not looking for change.</p>            
+            <p>Resources:</p>
+            <ul>
+                <li>
+                    <a href="https://spring.io/reactive">Spring Reactive - Home</a>
+                </li>
+                <li><a href="https://projectreactor.io">Project Reactor</a></li>
+                <li>
+                    <a href="https://spring.io/guides/gs/reactive-rest-service/">Building a Reactive RESTful Web Service with Spring</a>            
+                </li>
+            </ul>
+            <h3 class="ui header"><u>Quarkus</u></h3>
+            Quarkus aims to provide a developer toolchain right from live reload, all to way to kubernetes deployments, targeting OpenJDK HotSpot and GraalVM. In other words, magic!
+            <br/><br/>
+            <p><b>Who should use this?</b></p>            
+            <p>I believe this is a great framework to build for OpenJDK and not worry about a Oracle license. Especially, if you are already in a relationship with Red Hat, Quarkus offers great capabilities to build
+                services, with startup times demonstratively faster than Spring Boot (see <a href="https://micronaut.io/blog/2020-04-07-micronaut-vs-quarkus-vs-spring-boot-performance-jdk-14.html">Micronaut vs Quarkus vs Spring Boot Performance on JDK14</a>) .</p>
+            <p>Note that you do not
+                <em>need</em> Red Hat to build with Quarkus.</p>            
+            <p>Resources:</p>
+            <ul>
+                <li><a href="https://quarkus.io/guides/getting-started-reactive">Quarkus - Getting Started with Reactive</a></li>
+                <li><a href="https://vertx.io">Eclipse Vert.x</a></li>
+            </ul>
+            <h3 class="ui header"><u>Micronaut</u></h3>
+            Micronaut is a full stack JVM framework for building microservices from the creators of the Grails framework. Needless to say, a lot of Micronaut APIs are inspired by Grails, but a lot of them are also inspired by Spring.
+            <br/><br/>
+            <p><b>Who should use this?</b></p>
+            <p>Developers who would prefer an alternative to Spring and Quarkus.</p>
+            <p>One key distinction of Micronaut is that unlike Spring, dependency injection (DI) and
+                aspect oriented programming (AOP) use reflection as a last resort. Quoting the docs, "Unlike Spring which relies exclusively on runtime reflection and proxies, Micronaut uses compile time data to implement dependency injection".</p>
+            
+            <p>Resources:</p>
+            <ul>
+                <li><a href="https://micronaut.io">Micronaut - Home Page</a></li>
+                <li><a href="https://micronaut-projects.github.io/micronaut-reactor/latest/guide/index.html">Micronaut Reactor</a>
+                </li>
+                <li><a href="https://micronaut-projects.github.io/micronaut-rxjava3/latest/guide/index.html">Micronaut RxJava3 Integration</a>
+                </li>
+            </ul>
+            <h3 class="ui header"><u>Lagom</u></h3>
+            Lagom framework is perhaps an ahead of its time framework that lets you architect microservices using event sourcing and CQRS.          
+            <br/><br/>
+            <p><b>Who should use this?</b></p>
+            <p>Teams looking for a non-traditional persistence model, with a CQRS architecture to build microservices. Unfortunately, at this time, I do not believe you can go alone and run this in production unless you buy support/licenses from Lightbend.</p>
+            
+            <p>Resources:</p>
+            <ul>
+                <li><a href="https://www.lagomframework.com">Lagom - Home Page</a></li>
+            </ul>
+            <h3 class="ui header"><u>Akka</u></h3>
+            Akka is the de-facto framework for developers using Scala (although it also provides Java DSLs for most APIs I have seen).
+            <br/><br/>
+            <p><b>Who should use this?</b></p>
+            <p>Teams familiar with Scala and Akka, but do not want the overhead of Play or Lagom frameworks.</p>
+            
+            <p>Resources:</p>
+            <ul>
+                <li><a href="https://doc.akka.io/docs/akka-http/current/introduction.html">Akka - Home Page</a></li>
+                <li><a href="https://www.lightbend.com/microservices/reactive-microservices-events-domain-driven-design-ddd">Lightbend - Reactive Microservices</a></li>
+            </ul>
+            <h3 class="ui header">Recommendation</h3>
+            <p>Well, no drama here, I steer clear of which one is the best, since saying only one technology is the best technology
+                for every problem is just wrong. Well, to be honest, it is
+                <em>not even wrong</em>. E.g., AWS is a great choice for cloud services today, but it makes little business sense
+                for a Walmart to use it.</p>
+            <p>However, I have offered at least one pointer for when each framework makes sense, and my advice is to see what the use case is, what your team's
+                strengths are, and then go from there. Ultimately, whatever choice you make, there are going to be challenges
+                along the way, and having a team committed to a technology makes solving hard problems fun (no, it won’t
+                make them easy :)).</p>
+            <p>Note that these frameworks can <i>also</i> be used to build regular (non-reactive) microservices.</p>
+            <h2 class="ui header">Additional Resources</h2>
+            <h3 class="ui header">Reading</h3>
+            <ul>
+                <li>
+                    <a href="https://www.reactivemanifesto.org/">https://www.reactivemanifesto.org/</a>
+                </li>
+                <li>
+                    <a href="http://reactivex.io/intro.html">http://reactivex.io/intro.html</a>
+                </li>
+            </ul>
+            <h3 class="ui header">Libraries that help you do a performance evaluation</h3>
+            <ul>
+                <li>wrk (
+                    <a href="https://github.com/wg/wrk">https://github.com/wg/wrk</a>)</li>
+                <li>vegeta (
+                    <a href="https://github.com/tsenart/vegeta">https://github.com/tsenart/vegeta</a>)</li>
+            </ul>
+        </section>
+    </div>
+    <div class="ui inverted vertical footer segment">
+        <div class="ui center aligned container">
+            <div class="ui stackable inverted divided grid">
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Collections</h4>
+                    <div class="ui inverted link list">
+                        <a href="java.html" class="item">Java</a>
+                        <a href="spring.html" class="item">Spring</a>
+                        <a href="scala.html" class="item">Scala</a>
+                        <a href="akka.html" class="item">Akka</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">Collections</h4>
+                    <div class="ui inverted link list">
+                        <a href="cloud.html" class="item">Cloud</a>
+                        <a href="software-engineering.html" class="item">Application Architecture</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header">Contact</h4>
+                    <p>Drop me a message on
+                        <a href="https://www.linkedin.com/in/sumiya">LinkedIn.com</a> if you have suggestions, want to connect, or have any questions.</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <div class="ui horizontal inverted small divided link list">
+                <a class="item" href="help.html">Help</a>
+                <a class="item" href="help.html">Site Map</a>
+                <a class="item" href="https://www.linkedin.com/in/sumiya">Contact</a>
+                <a class="item" href="privacy-policy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

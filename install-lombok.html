@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="description" content="Steps to install project lombok in Eclipse on Mac" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+      <meta name="keywords" content="Lombok,Mac,Eclipse" />
+      <title>How to Install Project Lombok on Mac</title>
+      <link rel="stylesheet" type="text/css" href="dist/components/reset.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/site.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/container.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/grid.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/header.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/image.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/menu.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/divider.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/list.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/segment.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/dropdown.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/icon.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/item.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/card.css">
+
+	<style type="text/css">
+		body {
+			background-color: #FFFFFF;
+		}
+
+		.main.container {
+			margin-top: 5em;
+		}
+
+		.ui.footer.segment {
+			margin: 5em 0em 0em;
+			padding: 5em 0em;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="ui fixed inverted menu">
+		<div class="ui container">
+			<a href="index.html" class="header item">
+				Sumiya
+			</a>
+			<a href="index.html" class="item">Home</a>
+		</div>
+	</div>
+
+	<div class="ui main text container">
+               
+               <div>
+                  <h1>How to Install Lombok</h1>
+                  <p>
+                     Lombok is a great way to have boiler-plate code, especially getters and setters generated on the fly for you. The result is a clean and pithy bean definition.<br />&#8203;&nbsp;&nbsp;<br />
+                  <ul>
+                     <li>Download the Lombok jar from Project Lombok's home page: <a href="https://projectlombok.org/download.html">ProjectLombok</a>&nbsp;</li>
+                     <li>Navigate (cd) to the downloaded location.</li>
+                     <li>Find and Execute the Lombok Jar as follows from the command line/terminal.</li>
+                  </ul>
+                  </p>
+                  <div class="ui divider hidden"></div>
+                  <code>&#8203;java -jar lombok-1.16.6.jar</code>
+                  <div class="ui divider hidden"></div>
+                  <p>
+                  <code>&#8203;function helloWorld(str) {<br />&nbsp;&nbsp; &nbsp;document.open();<br />&nbsp;&nbsp; &nbsp;document.write(str);<br />&nbsp;&nbsp; &nbsp;document.close();<br />}<br /><br />helloWorld('&lt;h1&gt;Hello, World!&lt;/h1&gt;');
+                  </code></p>
+                  <div class="ui divider hidden"></div>
+               <p>
+                  The Lombok executable will scan the installation directory to find if an Eclipse installable exists.&nbsp;It might complain the "I can't find any IDEs on your computer .. use "Specify Location"...". In this case, you can specify your own location.<br />&#8203;&nbsp;
+				<ul>
+					<li>To do so, click "Specify Location...".</li>
+					<li>&#8203;Now navigate to the eclipse.ini file of your eclipse. E.g. When I am using STS, I have my eclipse *.ini located here.</li>
+				</ul>
+               </p>
+               <p><code>&#8203;/Development/sts-bundle/STS/Contents/Eclipse/STS.ini</code></p>
+               <p>Proceed with Installation now.<br /><br />Once done, launch your eclipse. Add lombok to your classpath if not already added. When using maven's managed dependency, the following dependency can be added.&nbsp;</p>
+               <p><code>&nbsp; &nbsp; &lt;dependency&gt;<br />&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;<br />&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;artifactId&gt;lombok&lt;/artifactId&gt;<br />&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&lt;version&gt;{your-lombok-version-here}&lt;/version&gt;<br />&nbsp;&nbsp; &nbsp;&lt;/dependency&gt;<br /></code></p>
+               <div class="ui divider hidden"></div>
+               <p>Restart your eclipse if the settings have not taken place. That's it. You are now setup to use all features of lombok in your favorite coding IDE.<br /><br />Here is a sample class using lombok's Data property. This will generate getters and setters for you - so a getDay method is available for use - even though it is not visible here.</p>
+                     <code>
+package com.example.boot.diner;                   
+<br /><br />
+import lombok.Data;
+<br /><br />
+@Data public class TrivialDinerRequest {
+      <br /><br />
+	&nbsp; &nbsp; private String day;
+	<br /><br />
+}
+</code>
+            </div>
+      </div>
+      </div>
+            
+      <div class="ui inverted vertical footer segment">
+            <div class="ui center aligned container">
+                  <div class="ui stackable inverted divided grid">
+                        <div class="three wide column">
+                              <h4 class="ui inverted header">Collections</h4>
+                              <div class="ui inverted link list">
+                                    <a href="java.html" class="item">Java</a>
+                                    <a href="spring.html" class="item">Spring</a>
+                                    <a href="scala.html" class="item">Scala</a>
+                                    <a href="akka.html" class="item">Akka</a>
+                              </div>
+                        </div>
+                        <div class="three wide column">
+                              <h4 class="ui inverted header">Collections</h4>
+                              <div class="ui inverted link list">
+                                    <a href="cloud.html" class="item">Cloud</a>
+                                    <a href="software-engineering.html" class="item">Application Architecture</a>
+                              </div>
+                        </div>
+                        <div class="seven wide column">
+                              <h4 class="ui inverted header">Contact</h4>
+                              <p>Drop me a message on
+                                    <a href="https://www.linkedin.com/in/sumiya">LinkedIn.com</a> if you have suggestions, want to connect, or have any questions.</p>
+                        </div>
+                  </div>
+                  <div class="ui inverted section divider"></div>
+                  <div class="ui horizontal inverted small divided link list">
+                        <a class="item" href="help.html">Help</a>
+                        <a class="item" href="help.html">Site Map</a>
+                        <a class="item" href="https://www.linkedin.com/in/sumiya">Contact</a>
+                        <a class="item" href="privacy-policy.html">Privacy Policy</a>
+                  </div>
+            </div>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Six Months of Scala" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="keywords" content="my experience with terraform and kubernetes, migrating from ec2 to eks, learn terraform, learn kubernetes, kubernetes war stories" />
+	<title>My experience with Terraform and Kubernetes</title>
+	<link rel="stylesheet" type="text/css" href="dist/components/reset.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/site.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/container.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/grid.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/header.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/image.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/menu.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/divider.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/list.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/segment.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/dropdown.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/icon.css">
+
+	<link rel="stylesheet" type="text/css" href="dist/components/item.css">
+	<link rel="stylesheet" type="text/css" href="dist/components/card.css">
+
+	<style type="text/css">
+		body {
+			background-color: #FFFFFF;
+		}
+
+		.main.container {
+			margin-top: 5em;
+		}
+
+		.ui.footer.segment {
+			margin: 5em 0em 0em;
+			padding: 5em 0em;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="ui fixed inverted menu">
+		<div class="ui container">
+			<a href="index.html" class="header item">
+				Sumiya
+			</a>
+			<a href="index.html" class="item">Home</a>
+		</div>
+	</div>
+
+	<div class="ui main text container">
+		<section>				
+                        <h1 class="ui header">
+                            My experience with Terraform and Kubernetes
+                            <div class="sub header">07/12/2020</div>
+                        </h1>                        
+					<div>
+						<div>
+							<section>
+                                                                      
+<h2>Overview</h2>
+<p>
+Over the last 4 weeks, I helped migrate one of our <a href="https://aws.amazon.com/sqs/">SQS</a> processing pipelines from <a href="https://aws.amazon.com/ec2/">EC2</a> into an existing <a href="https://aws.amazon.com/eks/">EKS</a> cluster.
+</p><p>I wanted to share the journey of how I went from knowing nothing about <a href="https://www.terraform.io">Terraform</a> and <a href="https://kubernetes.io">Kubernetes</a> to successfully completing the migration off from <a href="https://aws.amazon.com/cloudformation/">Cloudformation</a> and EC2 into Terraform with EKS.
+</p><p>Prior to migration, the application was running on 15 t2.medium EC2 instances. The average message processing capacity over the last month prior to migration was nearly 75 message per second per instance. 
+</p><p>The resources were managed through a CloudFormation stack.
+</p><p>We have two AWS accounts, one each for test and production. And we use Jenkins to deploy into these environments.
+</p><p>
+    Here is a high-level view of the application.
+    <br/><br/>
+    <img src="images/aws_sns_sqs.png" alt="Application Infrastructure" />
+    <br/>
+<ol>
+<li>System has a Source <a href="https://aws.amazon.com/sns/">SNS</a> and a Destination SNS.</li>
+<li>An SQS queue is subscribed to the Source SNS topic.</li>
+<li>An Akka-Streams based application processes the SQS messages. </li>
+<li>This application is deployed on EC2 instances.</li>
+<li>The application invokes multiple services. </li>
+<li>Some of them are within the EKS cluster that this application needs to move into.</li>
+<li>Failed to process messages are written to a Dead Letter Queue.</li>
+<li>The application logs to Splunk, SignalFx, and Cloudwatch for alerts and monitoring.</li>
+<li>The output of the system is written to a Destination SNS topic.    </li>
+</ol>
+</p>
+<h2>Plan</h2>
+<p>I spoke to our in-house Kubernetes expert on how to approach this, and he helped shape the approach of the migration. 
+</p><p>He suggested I break-down the effort into two-halves. 
+The first half was to ensure that all existing Cloudformation resources were imported into Terraform. The second half was to add permission and deployment details about the existing EKS cluster.
+</p>
+<h2>Kubernetes</h2>
+<p>
+Having had the overarching goal in my mind, I set about first learning what Kubernetes was.
+</p><p>
+I started with the Kubernetes concepts page from the official documentation: 
+<a href="https://kubernetes.io/docs/concepts/">Kubernetes / Concepts</a><br>
+</p><p>
+However, this was too much information to parse. I reckoned I would have to spend at least some hours or days for Terraform as well, and I needed to be productive soon.
+We had refined the effort to be completed in a single sprint (2 weeks).
+</p><p>
+I searched around and came across an excellent Youtube video by Steve Tegeler: <a href="https://www.youtube.com/watch?v=PH-2FfFD2PU">Kubernetes in 5 minutes</a>
+</p><p>
+This helped me immensely. I went back to the official documentation and re-read all pages under the Overview that helped solidify my understanding:
+
+<a href="https://kubernetes.io/docs/concepts/overview/">Kubernetes / Overview</a>
+</p><p>
+I then went through an AWS project that showed how to deploy a Kubernetes application with Amazon EKS:
+<a href="https://aws.amazon.com/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/">Amazon EKS Hands-On</a>.
+</p><p>
+I did this in my own account. Although the cost should have been 60 cents per the documentation, I had to take care of my daughter mid-way through the exercise, so the cluster was running for maybe a couple of extra hours so that cost me an extra dollar.
+</p><p>
+While I was on the AWS pages, I also read about EKS and how it was a managed control plane for Kubernetes, and by this time, I had a fairly good idea of what was needed to get off the EC2 instances and into the cluster.
+</p>
+
+<h2>Terraform</h2>
+<p>
+The other half of the unknown for me was Terraform. However, Terraform was rather simple to process.
+</p><p>You only need to understand `provider`, `import`, `resource`, `data`, `output`, and `module` to really get started.
+</p><p>The official documentation is sufficient.
+E.g. to import a queue, I would search `terraform sqs`, and the official documentation would be sufficient to understand how to import my queue:
+<a href="https://www.terraform.io/docs/providers/aws/r/sqs_queue.html">Terraform SQS Resource</a>
+</p>
+
+<h2>Migration</h2>
+<p>
+Here are the high level steps for migration.
+
+<ul>
+    <li>Backup the Cloudformation Stack Template.</li>
+    <li>Create a shell script to migrate existing Cloudformation resources.
+        This will contain the `import` statements that bring the Cloudformation resource into Terraform's state.</li>
+    <li>Work through each Cloudformation resource and fill out the necessary terraform infrastructure resource file.
+        <br/><br/>Terraform project structure: <br/><br/>
+        <img src="images/tf_project_structure.png" alt="Terraform Project Structure" /><br/>
+    </li>
+    <li>Add kuberenetes cluster resources</li>
+    <li>At each stage of adding a resource, ensure terraform does not really create or update a resource (`terraform plan`).
+        Since this is a migration, we do not expect any resource to be created or modified.
+    </li>
+    <li>Update application configuration to ensure endpoints within the cluster are accessed through a service name lookup.</li>
+    <li>Add Kubernetes deployment yaml</li>
+    <li>Update Jenkins file</li>
+</ul>
+
+One thing to note is that our build process only publishes the image to our Test environment's ECR. The production deployment
+uses this image itself, so we had to provide cross-account IAM access to enable this behavior.
+</p>
+
+<h2>Deploy</h2>
+<p>
+The deployment plan was simple:
+<ul>
+    <li>In Test environment, scale the Cloudformation stack to zero</li>
+    <li>Deploy application to Kubernetes</li>
+    <li>Run regression tests</li>
+    <li>If tests pass, promote image to Production. If they fail, identify and fix the issues.</li>
+    <li>In Production, deploy a single pod as a canary. Keep the Cloudformation stack up and running</li>
+    <li>Monitor the traffic going through the pod.</li>
+    <li>If any error occurs, or if the volume of dead-letter messages in SQS starts to increase, immediately abort the canary. Then investigate and fix any issues.</li>
+    <li>If no errors occur, scale-up the Kubernetes deployment to 15 pods. Monitor the traffic for 10 minutes.</li>
+    <li>If no new error is seen on the newly deployed pods, scale down the Cloudformation stack.</li>
+    <li>Update the CloudFormation stacks to retain resources on delete.</li>
+    <li>Delete the stacks in test and prod.</li>
+</ul> 
+</p>
+<p>We did face an issue during the canary, so we aborted the first attempt. Our dead-letter queue saw ~50 new messages during the ~.5/1 minute the canary was up.
+Splunk indicated that our private key server was not allowing the application deployed in kubernetes access to one of
+the API keys. This was not recognized in test because this was an external service and we only had production endpoints for this service.
+Setting the right IAM policy fixed the issue.
+</p>
+
+<h2>Closing Remarks</h2>
+<p>
+It took me 4 weeks to finish this and go into production.
+</p><p>
+The existing EKS cluster has 9 nodes, each node an m5.4xlarge EC2 instance. Effectively, this is nearly 10x the capacity our application needs. However, this cluster has other applications too, with more on the way, so our application is essentially sharing cluster capacity. 
+</p><p>
+We set the application to scale to 15 pods, and the application seems to be maintaining its performance levels since before the migration.
+</p>
+<p>
+I was initially frustrated because I did not really understand the benefit of moving from EC2 instances. However, somewhere along the way, I started enjoying the process of migration.
+</p><p>
+Here is what I still see as `open questions`.
+<ul>
+<li>At how many applications in the cluster would we start to see the cost benefit? In other words, if we only had 5 or 6 applications, how do we know we have not over-allocated resources? Would Fargate be a viable alternative, or would we need to install and maintain our own cluster autoscaler?</li>
+<li>Does having multiple applications in a single cluster increase the risk of failure? Is this turning into a monolith with single point of failure?</li>
+<li>Are we increasing the operational burden of the team? We have 5 engineers and we are neck deep in developing features. Apart from deploying, we rarely ever interact with infrastructure. However, with Kubernetes, we will now need to upgrade and maintain our cluster.</li>
+</ul>
+</p><p>
+My reservations about the migration remain, hopefully we will see some benefits and I will have another story to tell in future.
+                                </p>							
+							</section>
+						</div>
+					</div>
+				</div>
+			</section>
+
+	</div>
+	<div class="ui inverted vertical footer segment">
+			<div class="ui center aligned container">
+				<div class="ui stackable inverted divided grid">
+					<div class="three wide column">
+						<h4 class="ui inverted header">Collections</h4>
+						<div class="ui inverted link list">
+							<a href="java.html" class="item">Java</a>
+							<a href="spring.html" class="item">Spring</a>
+							<a href="scala.html" class="item">Scala</a>
+							<a href="akka.html" class="item">Akka</a>
+						</div>
+					</div>
+					<div class="three wide column">
+						<h4 class="ui inverted header">Collections</h4>
+						<div class="ui inverted link list">
+							<a href="cloud.html" class="item">Cloud</a>
+							<a href="software-engineering.html" class="item">Application Architecture</a>
+						</div>
+					</div>
+					<div class="seven wide column">
+						<h4 class="ui inverted header">Contact</h4>
+						<p>Drop me a message on
+							<a href="https://www.linkedin.com/in/sumiya">LinkedIn.com</a> if you have suggestions, want to connect, or have any questions.</p>
+					</div>
+				</div>
+				<div class="ui inverted section divider"></div>
+				<div class="ui horizontal inverted small divided link list">
+					<a class="item" href="help.html">Help</a>
+					<a class="item" href="help.html">Site Map</a>
+					<a class="item" href="https://www.linkedin.com/in/sumiya">Contact</a>
+					<a class="item" href="privacy-policy.html">Privacy Policy</a>
+				</div>
+			</div>
+		</div>
+   
+</body>
+
+</html>
