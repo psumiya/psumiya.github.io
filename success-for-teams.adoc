@@ -1,24 +1,96 @@
-# Thoughts on setting up Software Engineering Teams for Success
+# Thoughts on Setting up Software Engineering Teams for Success
 
 ## Thought Leader? I am not.
-I am a practitioner in field regularly collaborating with engineers and non-engineers to ship software. I am on an on-call rotation like other engineers on my team. My job involves balancing production support, delivering features into an already live system, and managing technical debt that comes with the territory of making trade-offs across time, quality, and cost.
+I am a practitioner in the field regularly collaborating with engineers and non-engineers to ship software. I am on an on-call rotation like other engineers on my team. My job involves balancing production support, delivering features into an already live system, and managing technical debt that comes with the territory of making trade-offs across time, quality, and cost.
 
-These viewpoints are shaped from my own experiences, from my team-mates past and present who I have learnt a lot from over the years, and from the technology community who have been open with sharing their own anecdotes and war stories of the systems they operate.
+The viewpoints expressed here are shaped from my own experiences, from my team-mates past and present who I have learnt a lot from over the years, and from the technology community who have been open with sharing their own anecdotes and war stories of the systems they operate.
 
 All right then, having declared that I am not a thought leader, just someone in the trenches, let's get into some thought-leading anyway!
 
 ## Introduction
-First, what I realized a little late in my career is that software engineering is not about software, or engineering.
+What I realized a little late in my career is that software engineering is not about software, or engineering.
 
-It is about people. It always has been.
+It is about people. It always has been. And no, I am not talking about being customer-centric or human-centered-design where the  human being considered is the customer. Of course, we need that. I am more than confident my friends in design can point to a wealth of literature on that.
 
-So needless to say, the first thing I realized was I need great people to make a great team. Should have been obvious, but I am writing it down in case I forget later, you know, just to make it explicit. Explicits are better than implicits, just like Tim Peters says in his post here, https://peps.python.org/pep-0020/[The Zen of Python]. Don't worry if you do not like Python, Tim's sort algorithm has also made its way into official JDK (since JDK8). Oh, I digress!
+What I am referring to here is that every successful team I have been part of has had great people. Should have been obvious, but I am writing it down in case I forget later, you know, just to make it explicit. _Explicit is better than implicit_, as Tim Peters says in his post here, https://peps.python.org/pep-0020/[The Zen of Python]. Also, Tim's sort algorithm has made its way into official Java, since JDK8. Oh, I digress!
 
-
+## People
 People, really? What does that mean though?
 
-It means every single decision you make about your system should be viewed through an important lens of the people who have built the system in the past, those who are building the system now, and those who will be operating or running them in the future.
+To me, it means for teams to be successful, we need individuals who care about each other, care about the people who have built the system in the past, care about those who are building the system now, and care about those who will be operating or running them in the future.
 
-Which means, for me to build a great team, in addition to having technical skills and being passionate about it, I would hope to find someone who can think through why some decisions that would have been made in the past may have made sense then, and how
+## Defining Success
+There is a contradiction we should be aware of - a successful team does not necessarily mean a successful product, or a successful product does not necessarily mean it was built by a successful team.
 
-Strive to provide tooling for most common and frequently repeated steps.
+Luck and timing are crucial factors for a successful _business_ outcome. As an engineer, I have been prone to hubris that super-star engineers or 10-x engineers is what creates success or conditions for success, but I do not agree with that thinking anymore.
+
+In my opinion, a team is successful if they went through a stressful situation together, and came out emotionally intact on the other side, all the time leaning on each other to calmly work through the surrounding storm.
+
+Calm waters seldom reveal character. True character is mostly revealed either when one is in a position of power, or when stressed, or both.
+
+With that said, you can observe daily interactions across your team and understand if the team is well-placed to face such a situation.
+
+Some ways to facilitate such interactions is to normalize making mistakes, encourage asking for help publicly or privately, and seeking pairing and mobbing activities to work on a task.
+
+Building upon Leo's story here from https://www.imdb.com/title/tt0745664/characters/nm0817983[The West Wing], I often volunteer to pair even when I do not know a way out.
+
+_This guy's walking down a street when he falls in a hole. The walls are so steep, he can't get out. A doctor passes by, and the guy shouts up, "Hey you, can you help me out?" The doctor writes a prescription, throws it down in the hole and moves on. Then a priest comes along, and the guy shouts up "Father, I'm down in this hole, can you help me out?" The priest writes out a prayer, throws it down in the hole and moves on. Then a friend walks by. "Hey Joe, it's me, can you help me out?" And the friend jumps in the hole. Our guy says, "Are you stupid? Now we're both down here." The friend says, "Yeah, but I've been down here before, and I know the way out."_
+
+Two reasons for why I jump into problems even when I do not know of a solution, or especially when I do not know the solution. One, because if the shoe were on the other foot, sometimes having a second person helps, even if they may just be a rubber duck (See https://en.wikipedia.org/wiki/Rubber_duck_debugging[rubber duck debugging on wikipedia]). And two, I am measuring myself as to how I react when teaming up to tackle an unknown problem. It is easy to advise to be calm, not so easy in practice. So when opportunities for real-time introspection arise (as opposed to post-hoc introspection), I welcome them.
+
+### Humanizing Processes
+
+So how do we ensure that we are applying the people lens when designing and building systems?
+
+Here are some suggestions based on my experience.
+
+#### System Design
+
+When designing a new system, seek feedback from other engineers who have worked in this area in the past, even if they might have moved teams. Additionally, seek feedback from your SRE (Site Reliability Engineering) teams as to what they would like to be incorporated.
+
+#### Development
+
+For peer reviews, encourage every team member to participate, not just your senior engineers.
+
+Establish emotional safety when providing and taking peer review feedback. It takes a long time to understand that the feedback is not about the person, it is about the code. Ensure this is well understood across the team.
+
+When providing peer review feedback on a functionality, think about what would benefit someone looking at that piece of code in six months. For a more in-depth advice on code reviews, I like Gunnar Morling's https://www.morling.dev/blog/the-code-review-pyramid/[The Code Review Pyramid]
+
+When re-factoring a piece of existing code, ask yourself the question - why did the original author write it that way? Look at version history, see if there are any links to requirements or other code.
+
+When pairing with a team-mate, I frequently start offering suggestions on how to approach the problem. But, that is not ideal. Know that everyone works differently, offer advise, but more importantly, listen. It goes a long way in understanding styles. It may happen you have contrasting style with someone you are pairing with, in that situation your best bet is to discuss the problem, walk away to work independently for some time, then come back together and share findings.
+
+#### Deployment
+
+Make production deployments a non-event. Meaning, once your code is reviewed and approved, it should be trivial to merge and promote the builds through your staging environments and finally to production.
+
+Additionally, it should be trivial to revert the deployment should things go wrong. And they do, inevitably. It takes a lot of continuous effort to establish a process maturity to reach that stage. But once there, engineers would not be as stressed about shipping faster knowing they have great fail-safes baked into the process.
+
+When shipping features, ensure those on-call are aware when a production deployment is about to happen. Co-ordinate across teams if what you are changing is critical and can trigger alerts for other teams. Ensure the feature and/or system has monitoring, preferably observability, baked in.
+
+#### Operations
+
+For on-call rotations, similar to system's SLA, establish a human SLA. I stole this idea from Charity Majors, Co-founder/CTO at Honeycomb.io (https://twitter.com/p_sumiya/status/1482960723772784643?s=20&t=-Pd1WDL2Pmk4WUWuW3H1ow[tweet here]), and my team has been open to experimenting with this. The concept is to track the stress on an engineer when they are on-call. For instance, increased support questions, or increased pages outside business hours implies too much stress on an individual and indicates we are not paying the right attention to production support.
+
+* Be open to copying great ideas. Humans copy right from the time they are born. The first two-way conversation my baby daughter had with me was a smile - I smiled, and she smiled back! You can call copying inspiration if that sounds better!
+
+As I said earlier, normalize making mistakes, and maybe, even celebrating failures. Establish mature processes to provide a low Mean Time To Recovery (MTTR) from a failure or outage.
+
+Ensure outages result in blog posts or write-ups that describe the system behavior, any impact, root cause, and action item(s). It should not blame individuals on your or other teams. The goal should be to learn from the failure and make processes and systems mature. In the spirit of copying ideas, you can also have a quarterly newsletter, say like _Google's Greatest Hits_ - their report of most interesting outages of the quarter (as mentioned in the book _Software Engineering at Google - Lessons Learned from Programming Over Time_).
+
+
+#### Enabling Agency
+
+Provide freedom to engineers to make decisions. It should be a team's prerogative to identify the best way to design, build, and operate.
+
+In established organizations, this becomes harder, since there is a tight balance to be had between having fragmented decision-making and yet enable freedom of choice that really is needed to generate innovative solutions.
+
+Too little freedom means, in practice, lack of engagement and then, unhappy or monotonous teams. Too much freedom means every team may have their own technology stack, making it harder to operate the project in the long run - since invariably, individuals move to different roles and/or companies, and what may have been an excellent solution for a year is now a clear business risk since no one knows how that critical thing works.
+
+A middle ground in such a situation could be to provide excellent tooling for standard technology stacks and languages that the organization recommends. Make the standard path frictionless, but if a team is convinced their problem domain is best served by something not already supported, have the team provide a good description of how they plan to address all the guardrails provided by your standard tooling, not just now, but over a 1-3 year horizon as enhancements are applied via the non-standard way.
+
+
+## Summary
+In general, listening to our team-mates, establishing a culture of respect and appreciation, and ensuring decisions being made thoughtfully consider engineers involved in the day-to-day building and running of the systems should go a long way in setting up teams for success.
+
+I am grateful to be part of a team that is receptive of new ideas and practices empathy and respect. Hope you are too!
