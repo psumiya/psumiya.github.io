@@ -1,5 +1,7 @@
 = Thoughts on Setting up Software Engineering Teams for Success
 
+link:index.html[Home]
+
 :description: A post with some suggestions on how to set engineering teams up for success.
 :author: Sumiya
 :nofooter:
@@ -10,6 +12,10 @@ I am a practitioner in the field regularly collaborating with engineers and non-
 
 The viewpoints expressed here are shaped from my own experiences, from my team-mates past and present who I have learnt a lot from over the years, and from the technology community who have been open with sharing their own anecdotes and war stories of the systems they operate.
 
+[quote, Josh Long / @starbuxman, Spring Developer Advocate]
+I am not a thought leader. My product isn’t thoughts.
+Thoughts don’t help people ship software. Tools and hard work do.
+
 All right then, having declared that I am not a thought leader, just someone in the trenches, let's get into some thought-leading anyway!
 
 == Introduction
@@ -17,7 +23,12 @@ What I realized a little late in my career is that software engineering is not a
 
 It is about people. It always has been. And no, I am not talking about being customer-centric or human-centered-design where the  human being considered is the customer. Of course, we need that.
 
-What I am referring to here is that every successful team I have been part of has had great people. Should have been obvious, but I am writing it down in case I forget later, you know, just to make it explicit. _Explicit is better than implicit_, as Tim Peters says in his post here, https://peps.python.org/pep-0020/[The Zen of Python]. Also, Tim's sort algorithm has made its way into official Java, since JDK8. Oh, I digress!
+What I am referring to here is that every successful team I have been part of has had great people. Should have been obvious, but I am writing it down, just to make it explicit.
+
+[quote, Tim Peters, The Zen of Python, https://peps.python.org/pep-0020/]
+Explicit is better than implicit.
+
+Also, Tim's sort algorithm has made its way into official Java, since JDK8. Oh, I digress!
 
 == People
 People, really? What does that mean though?
@@ -39,7 +50,8 @@ Some ways to facilitate such interactions is to normalize making mistakes, encou
 
 Building upon Leo's story here from https://www.imdb.com/title/tt0745664/characters/nm0817983[The West Wing], I often volunteer to pair even when I do not know a way out.
 
-_This guy's walking down a street when he falls in a hole. The walls are so steep, he can't get out. A doctor passes by, and the guy shouts up, "Hey you, can you help me out?" The doctor writes a prescription, throws it down in the hole and moves on. Then a priest comes along, and the guy shouts up "Father, I'm down in this hole, can you help me out?" The priest writes out a prayer, throws it down in the hole and moves on. Then a friend walks by. "Hey Joe, it's me, can you help me out?" And the friend jumps in the hole. Our guy says, "Are you stupid? Now we're both down here." The friend says, "Yeah, but I've been down here before, and I know the way out."_
+[quote, The West Wing, Season 2 Episode 10]
+This guy's walking down a street when he falls in a hole. The walls are so steep, he can't get out. A doctor passes by, and the guy shouts up, "Hey you, can you help me out?" The doctor writes a prescription, throws it down in the hole and moves on. Then a priest comes along, and the guy shouts up "Father, I'm down in this hole, can you help me out?" The priest writes out a prayer, throws it down in the hole and moves on. Then a friend walks by. "Hey Joe, it's me, can you help me out?" And the friend jumps in the hole. Our guy says, "Are you stupid? Now we're both down here." The friend says, "Yeah, but I've been down here before, and I know the way out."
 
 Two reasons for why I jump into problems even when I do not know of a solution, or especially when I do not know the solution. One, because if the shoe were on the other foot, sometimes having a second person helps, even if they may just be a rubber duck (See https://en.wikipedia.org/wiki/Rubber_duck_debugging[rubber duck debugging on wikipedia]). And two, I am measuring myself as to how I react when teaming up to tackle an unknown problem. It is easy to advise to be calm, not so easy in practice. So when opportunities for real-time introspection arise (as opposed to post-hoc introspection), I welcome them.
 
@@ -75,7 +87,13 @@ When shipping features, ensure those on-call are aware when a production deploym
 
 === Operations
 
-For on-call rotations, similar to system's SLA, establish a human SLA. I stole this idea from Charity Majors, Co-founder/CTO at Honeycomb.io (https://twitter.com/p_sumiya/status/1482960723772784643?s=20&t=-Pd1WDL2Pmk4WUWuW3H1ow[tweet here]), and thankfully, my team has been open to experimenting with this. The concept is to track the stress on an engineer when they are on-call. For instance, increased support questions, or increased pages outside business hours implies too much stress on an individual and indicates we are not paying the right attention to production support.
+For on-call rotations, similar to system's SLA, establish a human SLA. I stole this idea from Charity Majors (https://twitter.com/p_sumiya/status/1482960723772784643?s=20&t=-Pd1WDL2Pmk4WUWuW3H1ow[tweet here]).
+[quote, Charity Majors, Co-founder/CTO at Honeycomb.io]
+____
+Honeycomb on call teams have an SLO of not getting paged more than twice a week, or having to work an incident outside of business hours more than once every six months.
+____
+
+Thankfully, my team has been open to experimenting with this. The concept is to track the stress on an engineer when they are on-call. For instance, increased support questions, or increased pages outside business hours implies too much stress on an individual and indicates we are not paying the right attention to our team-mates well-being.
 
 * Be open to copying great ideas. Humans copy right from the time they are born. The first two-way conversation my baby daughter had with me was a smile - I smiled, and she smiled back! You can call copying inspiration if that sounds better!
 
@@ -94,11 +112,18 @@ Too little freedom means, in practice, lack of engagement and then, unhappy or m
 
 A middle ground in such a situation could be to provide excellent tooling for standard technology stacks and languages that the organization recommends. Make the standard path frictionless, but if a team is convinced their problem domain is best served by something not already supported, have the team provide a good description of how they plan to address all the guardrails provided by your standard tooling, not just now, but over a 1-3 year horizon as enhancements are applied via the non-standard way.
 
-Also, freedom does not apply just to technological choices, but also to processes. For instance, listen to your team if some meetings can be shortened down, canceled, or their agenda expanded or contracted. Be agile about your agile processes, if kanban is better for a team when all your agile follows scrum, the team should have the flexibility to change that. Being dogmatic about processes and structures is not really agile. Note the Wittgenstein's Ruler in effect here, if an org follows rigid processes to consider themselves agile, then the overall system may not really be agile.
+Also, freedom does not apply just to technological choices, but also to processes. For instance, listen to your team if some meetings can be shortened down, canceled, or their agenda expanded or contracted. Be agile about your agile processes. For example, if kanban is better for a team when all your org follows scrum, the team should still have the flexibility to change that. Being dogmatic about processes and structures is not really agile. Note the Wittgenstein's Ruler in effect here, if an org follows rigid processes to consider themselves agile, then the overall system may not really be agile.
 
-_Wittgenstein's Ruler: "Unless you have confidence in the ruler's reliability, if you use a ruler to measure a table you may also be using the table to measure the ruler." —  Nassim Nicholas Taleb, in Fooled by Randomness_
+.Wittgenstein's Ruler
+[quote, Nassim Nicholas Taleb, Fooled by Randomness]
+Unless you have confidence in the ruler's reliability, if you use a ruler to measure a table you may also be using the table to measure the ruler.
+
 
 == Summary
 In general, listening to our team-mates, establishing a culture of respect and appreciation, and ensuring decisions being made thoughtfully consider engineers involved in the day-to-day building and running of the systems should go a long way in setting up teams for success.
 
 I am grateful to be part of a team that is receptive of new ideas and practices empathy and respect. Hope you are too!
+
+'''
+
+include::footer.adoc[]

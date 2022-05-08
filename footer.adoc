@@ -1,0 +1,1 @@
+link:index.html[Home] | link:privacy-policy.html[Privacy] | link:software-engineering.html[Software Engineering] | link:cloud.html[Cloud] | link:java.html[Java] | link:scala.html[Scala] | link:https://www.linkedin.com/in/sumiya[Contact]
