@@ -1,0 +1,24 @@
+# Thoughts on setting up Software Engineering Teams for Success
+
+## Thought Leader? I am not.
+I am a practitioner in field regularly collaborating with engineers and non-engineers to ship software. I am on an on-call rotation like other engineers on my team. My job involves balancing production support, delivering features into an already live system, and managing technical debt that comes with the territory of making trade-offs across time, quality, and cost.
+
+These viewpoints are shaped from my own experiences, from my team-mates past and present who I have learnt a lot from over the years, and from the technology community who have been open with sharing their own anecdotes and war stories of the systems they operate.
+
+All right then, having declared that I am not a thought leader, just someone in the trenches, let's get into some thought-leading anyway!
+
+## Introduction
+First, what I realized a little late in my career is that software engineering is not about software, or engineering.
+
+It is about people. It always has been.
+
+So needless to say, the first thing I realized was I need great people to make a great team. Should have been obvious, but I am writing it down in case I forget later, you know, just to make it explicit. Explicits are better than implicits, just like Tim Peters says in his post here, https://peps.python.org/pep-0020/[The Zen of Python]. Don't worry if you do not like Python, Tim's sort algorithm has also made its way into official JDK (since JDK8). Oh, I digress!
+
+
+People, really? What does that mean though?
+
+It means every single decision you make about your system should be viewed through an important lens of the people who have built the system in the past, those who are building the system now, and those who will be operating or running them in the future.
+
+Which means, for me to build a great team, in addition to having technical skills and being passionate about it, I would hope to find someone who can think through why some decisions that would have been made in the past may have made sense then, and how
+
+Strive to provide tooling for most common and frequently repeated steps.
