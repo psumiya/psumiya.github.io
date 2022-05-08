@@ -6,23 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
 <title>Thoughts on Setting up Software Engineering Teams for Success</title>
-<link rel="stylesheet" type="text/css" href="dist/components/reset.css">
-<link rel="stylesheet" type="text/css" href="dist/components/site.css">
-
-<link rel="stylesheet" type="text/css" href="dist/components/container.css">
-<link rel="stylesheet" type="text/css" href="dist/components/grid.css">
-<link rel="stylesheet" type="text/css" href="dist/components/header.css">
-<link rel="stylesheet" type="text/css" href="dist/components/image.css">
-<link rel="stylesheet" type="text/css" href="dist/components/menu.css">
-
-<link rel="stylesheet" type="text/css" href="dist/components/divider.css">
-<link rel="stylesheet" type="text/css" href="dist/components/list.css">
-<link rel="stylesheet" type="text/css" href="dist/components/segment.css">
-<link rel="stylesheet" type="text/css" href="dist/components/dropdown.css">
-<link rel="stylesheet" type="text/css" href="dist/components/icon.css">
-
-<link rel="stylesheet" type="text/css" href="dist/components/item.css">
-<link rel="stylesheet" type="text/css" href="dist/components/card.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -453,23 +436,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body>
-    <div class="ui fixed inverted menu">
-        <div class="ui container">
-            <a href="index.html" class="header item">
-                Sumiya
-            </a>
-            <a href="index.html" class="item">Home</a>
-        </div>
-    </div>
-    <div class="ui divider"></div>
-<div class="article">
+<body class="article">
 <div id="header">
 <h1>Thoughts on Setting up Software Engineering Teams for Success</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_thought_leader_i_am_not">Thought Leader? I am not.</h2>
+<h2 id="_thought_leader_i_am_not"><a class="link" href="#_thought_leader_i_am_not">Thought Leader? I am not.</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>I am a practitioner in the field regularly collaborating with engineers and non-engineers to ship software. I am on an on-call rotation like other engineers on my team. My job involves balancing production support, delivering features into an already live system, and managing technical debt that comes with the territory of making trade-offs across time, quality, and cost.</p>
@@ -483,13 +456,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
+<h2 id="_introduction"><a class="link" href="#_introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>What I realized a little late in my career is that software engineering is not about software, or engineering.</p>
 </div>
 <div class="paragraph">
-<p>It is about people. It always has been. And no, I am not talking about being customer-centric or human-centered-design where the  human being considered is the customer. Of course, we need that. I am more than confident my friends in design can point to a wealth of literature on that.</p>
+<p>It is about people. It always has been. And no, I am not talking about being customer-centric or human-centered-design where the  human being considered is the customer. Of course, we need that.</p>
 </div>
 <div class="paragraph">
 <p>What I am referring to here is that every successful team I have been part of has had great people. Should have been obvious, but I am writing it down in case I forget later, you know, just to make it explicit. <em>Explicit is better than implicit</em>, as Tim Peters says in his post here, <a href="https://peps.python.org/pep-0020/">The Zen of Python</a>. Also, Tim&#8217;s sort algorithm has made its way into official Java, since JDK8. Oh, I digress!</p>
@@ -497,7 +470,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_people">People</h2>
+<h2 id="_people"><a class="link" href="#_people">People</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>People, really? What does that mean though?</p>
@@ -508,13 +481,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_defining_success">Defining Success</h2>
+<h2 id="_defining_success"><a class="link" href="#_defining_success">Defining Success</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>There is a contradiction we should be aware of - a successful team does not necessarily mean a successful product, or a successful product does not necessarily mean it was built by a successful team.</p>
 </div>
 <div class="paragraph">
-<p>Luck and timing are crucial factors for a successful <em>business</em> outcome. As an engineer, I have been prone to hubris that super-star engineers or 10-x engineers is what creates success or conditions for success, but I do not agree with that thinking anymore.</p>
+<p>Luck and timing are crucial factors for a successful <em>business</em> outcome. You may have heard that super-star engineers or 10-x engineers is what creates success or conditions for success, but know that it is our hubris speaking.</p>
 </div>
 <div class="paragraph">
 <p>In my opinion, a team is successful if they went through a stressful situation together, and came out emotionally intact on the other side, all the time leaning on each other to calmly work through the surrounding storm.</p>
@@ -537,22 +510,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Two reasons for why I jump into problems even when I do not know of a solution, or especially when I do not know the solution. One, because if the shoe were on the other foot, sometimes having a second person helps, even if they may just be a rubber duck (See <a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duck debugging on wikipedia</a>). And two, I am measuring myself as to how I react when teaming up to tackle an unknown problem. It is easy to advise to be calm, not so easy in practice. So when opportunities for real-time introspection arise (as opposed to post-hoc introspection), I welcome them.</p>
 </div>
-<div class="sect2">
-<h3 id="_humanizing_processes">Humanizing Processes</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_humanizing_processes"><a class="link" href="#_humanizing_processes">Humanizing Processes</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>So how do we ensure that we are applying the people lens when designing and building systems?</p>
 </div>
 <div class="paragraph">
 <p>Here are some suggestions based on my experience.</p>
 </div>
-<div class="sect3">
-<h4 id="_system_design">System Design</h4>
+<div class="sect2">
+<h3 id="_system_design"><a class="link" href="#_system_design">System Design</a></h3>
 <div class="paragraph">
 <p>When designing a new system, seek feedback from other engineers who have worked in this area in the past, even if they might have moved teams. Additionally, seek feedback from your SRE (Site Reliability Engineering) teams as to what they would like to be incorporated.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_development">Development</h4>
+<div class="sect2">
+<h3 id="_development"><a class="link" href="#_development">Development</a></h3>
 <div class="paragraph">
 <p>For peer reviews, encourage every team member to participate, not just your senior engineers.</p>
 </div>
@@ -569,8 +545,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>When pairing with a team-mate, I frequently start offering suggestions on how to approach the problem. But, that is not ideal. Know that everyone works differently, offer advise, but more importantly, listen. It goes a long way in understanding styles. It may happen you have contrasting style with someone you are pairing with, in that situation your best bet is to discuss the problem, walk away to work independently for some time, then come back together and share findings.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_deployment">Deployment</h4>
+<div class="sect2">
+<h3 id="_deployment"><a class="link" href="#_deployment">Deployment</a></h3>
 <div class="paragraph">
 <p>Make production deployments a non-event. Meaning, once your code is reviewed and approved, it should be trivial to merge and promote the builds through your staging environments and finally to production.</p>
 </div>
@@ -581,10 +557,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>When shipping features, ensure those on-call are aware when a production deployment is about to happen. Co-ordinate across teams if what you are changing is critical and can trigger alerts for other teams. Ensure the feature and/or system has monitoring, preferably observability, baked in.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_operations">Operations</h4>
+<div class="sect2">
+<h3 id="_operations"><a class="link" href="#_operations">Operations</a></h3>
 <div class="paragraph">
-<p>For on-call rotations, in addition to system&#8217;s SLA, establish a human SLA. I stole this idea from Charity Majors, Co-founder/CTO at Honeycomb.io (<a href="https://twitter.com/p_sumiya/status/1482960723772784643?s=20&amp;t=-Pd1WDL2Pmk4WUWuW3H1ow">tweet here</a> &lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Great idea! Will be setting this guideline for my team. We pride ourself on making our engineers on call duration stress free. Yet I was wondering how to also establish meaningful metric to ensure we went beyond culture to something more systemic. Appreciate you sharing this.&lt;/p&gt;&mdash; Sumiya (@p_sumiya) &lt;a href="https://twitter.com/p_sumiya/status/1482960723772784643?ref_src=twsrc%5Etfw"&gt;January 17, 2022&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;), and my has been open to experimenting with this. The concept is to track the stress on an engineer when they are on-call. For instance, increased support questions, or increased pages outside business hours implies too much stress on an individual and indicates we are not paying the right attention to production support.</p>
+<p>For on-call rotations, similar to system&#8217;s SLA, establish a human SLA. I stole this idea from Charity Majors, Co-founder/CTO at Honeycomb.io (<a href="https://twitter.com/p_sumiya/status/1482960723772784643?s=20&amp;t=-Pd1WDL2Pmk4WUWuW3H1ow">tweet here</a>), and my team has been open to experimenting with this. The concept is to track the stress on an engineer when they are on-call. For instance, increased support questions, or increased pages outside business hours implies too much stress on an individual and indicates we are not paying the right attention to production support.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -600,8 +576,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Ensure outages result in blog posts or write-ups that describe the system behavior, any impact, root cause, and action item(s). It should not blame individuals on your or other teams. The goal should be to learn from the failure and make processes and systems mature. In the spirit of copying ideas, you can also have a quarterly newsletter, say like <em>Google&#8217;s Greatest Hits</em> - their report of most interesting outages of the quarter (as mentioned in the book <em>Software Engineering at Google - Lessons Learned from Programming Over Time</em>).</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_enabling_agency">Enabling Agency</h4>
+<div class="sect2">
+<h3 id="_enabling_agency"><a class="link" href="#_enabling_agency">Enabling Agency</a></h3>
 <div class="paragraph">
 <p>Provide freedom to engineers to make decisions. It should be a team&#8217;s prerogative to identify the best way to design, build, and operate.</p>
 </div>
@@ -614,12 +590,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>A middle ground in such a situation could be to provide excellent tooling for standard technology stacks and languages that the organization recommends. Make the standard path frictionless, but if a team is convinced their problem domain is best served by something not already supported, have the team provide a good description of how they plan to address all the guardrails provided by your standard tooling, not just now, but over a 1-3 year horizon as enhancements are applied via the non-standard way.</p>
 </div>
+<div class="paragraph">
+<p>Also, freedom does not apply just to technological choices, but also to processes. For instance, listen to your team if some meetings can be shortened down, canceled, or their agenda expanded or contracted. Be agile about your agile processes, if kanban is better for a team when all your agile follows scrum, the team should have the flexibility to change that. Being dogmatic about processes and structures is not really agile. Note the Wittgenstein&#8217;s Ruler in effect here, if an org follows rigid processes to consider themselves agile, then the overall system may not really be agile.</p>
+</div>
+<div class="paragraph">
+<p><em>Wittgenstein&#8217;s Ruler: "Unless you have confidence in the ruler&#8217;s reliability, if you use a ruler to measure a table you may also be using the table to measure the ruler." —  Nassim Nicholas Taleb, in Fooled by Randomness</em></p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_summary">Summary</h2>
+<h2 id="_summary"><a class="link" href="#_summary">Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In general, listening to our team-mates, establishing a culture of respect and appreciation, and ensuring decisions being made thoughtfully consider engineers involved in the day-to-day building and running of the systems should go a long way in setting up teams for success.</p>
@@ -627,12 +608,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>I am grateful to be part of a team that is receptive of new ideas and practices empathy and respect. Hope you are too!</p>
 </div>
-</div>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2022-05-07 18:32:04 -0700
 </div>
 </div>
 </div>
