@@ -1,0 +1,29 @@
+= Sumiya
+
+link:index.html[Home]
+
+:description: Sumiya's blog.
+:author: Sumiya
+:nofooter:
+:sectlinks:
+
+== Hello!
+I have been operating and building software since early 2008.
+
+This is a collection of small articles regarding software engineering I have learnt and experienced along the way.
+
+== Posts
+
+link:success-for-teams.html[Thoughts on Setting up Software Engineering Teams for Success]:: Opinionated article on how to setup software engineering teams for success.
+
+link:my-experience-with-terraform-and-kubernetes.html[My experience with Terraform and Kubernetes]:: A war story of how I went from knowing nothing about Terraform and Kubernetes to successfully completing a migration off from Cloudformation and EC2 into Terraform and EKS.
+
+link:six-months-of-scala.html[My Experience with Scala]:: My experience after having learnt and used Scala for six months.
+
+link:reactive-microservice-frameworks-for-jvm-2021.html[Reactive Microservice Frameworks for JVM - 2021]:: With Java 9 came an implementation of Reactive Streams right within the JDK. I wanted to take stock and begin a listing of the frameworks that are available today that leverage reactive principles and help build reactive microservices.
+
+link:index-pre-2022.html[View Other Posts]
+
+'''
+
+include::footer.adoc[]
