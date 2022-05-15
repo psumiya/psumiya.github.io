@@ -1,0 +1,26 @@
+= Sumiya
+
+link:index.html[Home]
+
+:description: Sumiya's blog.
+:author: Sumiya
+:nofooter:
+:sectlinks:
+
+== Posts
+
+link:simplified-akka-actor-system-examples.html[Simplified Akka Actor System Examples]
+
+link:algoclinic-blog-architecture.html[This Blog's Architecture]
+
+link:serverless.html[Serverless Architectures]
+
+link:java-8-time-api-quickstart.html[Java Time API QuickStart]
+
+link:gerrit-best-practices.html[Gerrit Best Practices]
+
+link:micro-services-example-with-spring-boot-and-zookeeper.html[MicroServices Example with Spring Boot and ZooKeeper]
+
+'''
+
+include::footer.adoc[]

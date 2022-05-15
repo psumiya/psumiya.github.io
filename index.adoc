@@ -22,7 +22,7 @@ link:six-months-of-scala.html[My Experience with Scala]:: My experience after ha
 
 link:reactive-microservice-frameworks-for-jvm-2021.html[Reactive Microservice Frameworks for JVM - 2021]:: With Java 9 came an implementation of Reactive Streams right within the JDK. I wanted to take stock and begin a listing of the frameworks that are available today that leverage reactive principles and help build reactive microservices.
 
-link:index-pre-2022.html[View Other Posts]
+link:other.html[View Other Posts]
 
 '''
 
