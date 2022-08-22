@@ -12,6 +12,8 @@ I have been operating and building software since early 2008.
 
 This is a collection of small articles regarding software engineering I have learnt and experienced along the way.
 
+*Disclaimer*: These are my own opinions and do not reflect opinions of the employer where I am presently employed.
+
 == Posts
 
 link:success-for-teams.html[Thoughts on Setting up Software Engineering Teams for Success]:: Opinionated article on how to setup software engineering teams for success.

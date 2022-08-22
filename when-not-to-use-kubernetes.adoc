@@ -1,0 +1,84 @@
+= When Not To Use Kubernetes
+
+link:index.html[Home]
+
+:description: when not to use kubernetes
+:author: Sumiya
+:nofooter:
+:sectlinks:
+
+== Preamble
+This article is primarily aimed at software developers who also own and run their services in production on Amazon Web Services (AWS) or similar Cloud offerings.
+
+For the last decade or so, many software-development teams have adopted microservices and a culture of DevOps.
+
+While different individuals interpret the DevOps word differently, in this article, I mean DevOps to be the philosophy that the team that builds the software also runs and operates it in production, and is on-call 24x7x365 to support them.
+
+In this article I recommend that such teams should avoid Kubernetes.
+
+== Post
+
+In the enterprise world, and I assume in most profit-making constructs, the primary purpose of software is to provide business value.
+
+By extension, the primary purpose of software development teams is to write software that provides business value, do it with high quality, and in the least amount of time possible.
+
+A couple of years ago, I was tasked with migrating a service that was running on plain Virtual Machines (VMs), i.e., Elastic Compute Cloud (EC2) to Elastic Kubernetes Service (EKS).
+
+I went about it in some detail on this post at the time: https://sumiya.page/my-experience-with-terraform-and-kubernetes.html[My experience with Terraform and Kubernetes].
+
+I ended that post with some reservations about Kubernetes and would reflect on them here.
+
+'''
+[qanda]
+At how many applications in the cluster would we start to see the cost benefit? In other words, if we only had 5 or 6 applications, how do we know we have not over-allocated resources? Would Fargate be a viable alternative, or would we need to install and maintain our own cluster autoscaler?::
+Team ended up with installing and maintaining an autoscalar.
+
+Does having multiple applications in a single cluster increase the risk of failure? Is this turning into a monolith with single point of failure?::
+Yes.
+
+Are we increasing the operational burden of the team? We have 5 engineers and we are neck deep in developing features. Apart from deploying, we rarely ever interact with infrastructure. However, with Kubernetes, we will now need to upgrade and maintain our cluster.::
+Yes.
+
+'''
+
+=== Story
+In addition to realizing answers to above questions, there are additional risks the team discovered as time went on. For example,  when you use a managed Kubernetes offering like EKS, you still have to install and setup additional things for cluster's networking and security. That in and of itself may not be a big deal, but you must ensure the versions of those tools are compatible with the version of Kubernetes being used.
+
+We found this out the hard way when after one upgrade of EKS, we experienced an outage because the version of Traefik we had was no longer compatible with the version of Kubernetes that EKS had. And of course such troubleshooting required skilled Kubernetes knowledge, a specialty which we as a primarily application development team continue to lack.
+
+=== Story
+For EKS, Amazon offers support for some Kubernetes versions, ending support for older versions at some cadence (see official release calendar https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html#kubernetes-release-calendar[here]).
+
+Due to competing priorities we somehow fell behind officially supported version of Kubernetes. We had to spend several cycles with multiple engineers learning about the cluster setup and safely perform the upgrade.
+
+So, to this day, we continue to bleed time into a system that should instead be used to build more of what the product needs. Kubernetes has most definitely come in the way of us delivering on the promise of increased agility.
+
+== Conclusion
+So what is the solution?
+
+Do we move away from the DevOps model we _have_ adopted back to how things used to be, where Developers build stuff and throw it over the wall to Operations who are the actual experts on infrastructure. Clearly no, since that sets us back on the progress we have made.
+
+Since changing the process is out of the question, changing the tool seems a more reasonable approach.
+
+In my opinion, Kubernetes and all of its complexity should really be left to the _very_ few teams who actually do need it solve some problem that is very special to their domain. For those use cases, Kubernetes would indeed be providing a business value, and that would be incentive for the business at large to build and maintain teams with Kubernetes expertise.
+
+But I suspect for the vast majority of application development teams who really have embraced the DevOps mindset and are executing successfully on owning both the infrastructure and the feature development work, Kubernetes is an expensive distraction.
+
+If it helps, the vast majority of workloads I currently support fall in two broad categories, up to 10000 requests per second for each.
+
+* HTTP/REST APIs
+* Asynchronous Message Processing Pipelines
+
+There is really no need to use Kubernetes for these workloads. If you have similar workloads and are looking for some suggestions and are on AWS, Lambda should definitely be on your list of options.
+
+Today, Lambdas with Arm64 count towards your committed EC2 spend - this is besides the cost benefits of ~34% mentioned https://aws.amazon.com/blogs/aws/aws-lambda-functions-powered-by-aws-graviton2-processor-run-your-functions-on-arm-and-get-up-to-34-better-price-performance/[here on the official blog].
+
+If Lambda does not provide what you need, you can look at other offerings like Elastic Container Service (ECS)/Fargate.
+
+In summary, while you can grasp concepts of Kubernetes by spending enough time learning about it and its ecosystem, the second order effects of choosing it is expensive enough to be left to the experts. Additionally, do not forget about https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect[Dunning-Kruger effect] as you learn about k8s.
+
+Like all things, there are tradeoffs you must consider for your domain. And so I do not claim what the right use cases for Kubernetes are, just that it has been wrong for the use cases I have encountered.
+
+'''
+
+include::footer.adoc[]
