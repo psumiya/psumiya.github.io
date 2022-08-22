@@ -16,6 +16,8 @@ This is a collection of small articles regarding software engineering I have lea
 
 == Posts
 
+link:when-not-to-use-kubernetes.html[When Not to Use Kubernetes]:: Some thoughts after having used Kubernetes in production.
+
 link:success-for-teams.html[Thoughts on Setting up Software Engineering Teams for Success]:: Opinionated article on how to setup software engineering teams for success.
 
 link:my-experience-with-terraform-and-kubernetes.html[My experience with Terraform and Kubernetes]:: A war story of how I went from knowing nothing about Terraform and Kubernetes to successfully completing a migration off from Cloudformation and EC2 into Terraform and EKS.
