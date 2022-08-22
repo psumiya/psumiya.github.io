@@ -41,15 +41,15 @@ Yes.
 
 '''
 
-=== Story
+=== Story I
 In addition to realizing answers to above questions, there are additional risks the team discovered as time went on. For example,  when you use a managed Kubernetes offering like EKS, you still have to install and setup additional things for cluster's networking and security. That in and of itself may not be a big deal, but you must ensure the versions of those tools are compatible with the version of Kubernetes being used.
 
 We found this out the hard way when after one upgrade of EKS, we experienced an outage because the version of Traefik we had was no longer compatible with the version of Kubernetes that EKS had. And of course such troubleshooting required skilled Kubernetes knowledge, a specialty which we as a primarily application development team continue to lack.
 
-=== Story
+=== Story II
 For EKS, Amazon offers support for some Kubernetes versions, ending support for older versions at some cadence (see official release calendar https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html#kubernetes-release-calendar[here]).
 
-Due to competing priorities we somehow fell behind officially supported version of Kubernetes. We had to spend several cycles with multiple engineers learning about the cluster setup and safely perform the upgrade.
+Due to competing priorities we somehow fell behind officially supported version of Kubernetes. When we lost our Kubernetes expert to a typical churn at work, we had to spend several cycles with multiple engineers learning about the cluster setup to safely perform the upgrade.
 
 So, to this day, we continue to bleed time into a system that should instead be used to build more of what the product needs. Kubernetes has most definitely come in the way of us delivering on the promise of increased agility.
 
@@ -60,7 +60,7 @@ Do we move away from the DevOps model we _have_ adopted back to how things used 
 
 Since changing the process is out of the question, changing the tool seems a more reasonable approach.
 
-In my opinion, Kubernetes and all of its complexity should really be left to the _very_ few teams who actually do need it solve some problem that is very special to their domain. For those use cases, Kubernetes would indeed be providing a business value, and that would be incentive for the business at large to build and maintain teams with Kubernetes expertise.
+In my opinion, Kubernetes and all of its complexity should really be left to the _very_ few teams who actually do need it to solve some problem that is very special to their domain. For those use cases, Kubernetes would indeed be providing a business value, and that would be incentive for the business at large to build and maintain teams with Kubernetes expertise.
 
 But I suspect for the vast majority of application development teams who really have embraced the DevOps mindset and are executing successfully on owning both the infrastructure and the feature development work, Kubernetes is an expensive distraction.
 
