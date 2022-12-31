@@ -1,0 +1,194 @@
+= Building an AWS Lambda with custom Java Runtime using Gradle and Docker
+
+link:index.html[Home]
+
+:description: building an aws lambda with custom java runtime using gradle and docker
+:author: Sumiya
+:nofooter:
+:sectlinks:
+:icons: font
+
+== Introduction
+
+I came across this article about building a custom runtime earlier this year and promptly bookmarked it as something to try later when I get a chance.
+
+https://aws.amazon.com/blogs/compute/build-a-custom-java-runtime-for-aws-lambda/
+
+Well, the end of year break in the work routine enabled me to wander along in various experiments, one of which led me back to this article.
+
+The referenced article sets up a customized Corretto JDK 18 runtime for a Java lambda, using maven, and CDK to deploy.
+
+This blog takes that article out for a spin and shares the same tricks, but with the following differences.
+
+- JDK 19 instead of 18
+- Gradle instead of Maven
+- SAM/CloudFormation instead of CDK
+- Incremental approach of starting with a vanilla JDK and then customizing it
+
+== Story
+
+This is the project if you want to view the final state of the code and configuration.
+
+https://github.com/psumiya/json-path-api
+
+While that project is aimed at a different purpose, this blog is focused on how I evolved the project in the context of lambda's runtime over the last two days.
+
+[sidebar]
+Java 11 -> Java 11 Custom Runtime -> Java 19 Custom Runtime
+
+=== Part I
+I started with a basic Java project with Gradle.
+
+The empty project can be seen at this commit here: https://github.com/psumiya/json-path-api/commit/a0f83aa377b14f1f46bc3f68847858f049f50d63[a0f83aa]
+
+I then added the Lambda dependencies and a corresponding Lambda handler method.
+
+See commit here: https://github.com/psumiya/json-path-api/commit/07bea69fefb3ed9d6e480c0f9b448ad5047a483c[07bea69]
+
+=== Part II
+At first, there was JDK 11.
+
+I decided to start with JDK 11 since that is one of the default supported runtimes by AWS Lambda.
+
+It helped me get the quirks out of the way before I started experimenting more.
+
+One of the quirks I ran into was that I was using IntelliJ to boostrap the project and my IntelliJ JDK is set to JDK 19 by default.
+
+However, since I wanted to use JDK 11, I moved over to my non-IntelliJ terminal to build the project using Java 11 without affecting my IntelliJ setup.
+
+I used sdkman to switch to Java 11, and ran gradle build.
+
+TIP: Highly recommend sdkman if you need to work with multiple Java runtimes on your machine. See here: https://sdkman.io/
+
+The build failed, since I had forgotten that I had used text block in my Handler. However, Text blocks were introduced in Java 15, i.e., a few versions later. I fixed the string locally. Then proceeded to build the zip.
+
+NOTE: JEP 378: Text Blocks: https://openjdk.org/jeps/378
+
+This compiled, and I was able to deploy and test the Lambda successfully.
+
+Checkpoint 1 complete. Commit here (missed committing the updated Handler file though): https://github.com/psumiya/json-path-api/commit/3fc360adf897a55054540262ae90f5328cb57ae7[3fc360a]
+
+=== Part III
+The next step was to continue to use Java 11 but with a customized runtime.
+
+This is where the reference project started to come in handy.
+
+It describes the logical aspects of how to put together a custom (and enhanced) runtime, which distills down to the following:
+
+. Build application jar
+. Define the Java Runtime you want to use
+. Prepare bootstrap
+. Bundle the above artifacts together in a zip
+. Deploy the Lambda
+
+==== Build application jar
+I removed the buildZip gradle task I had created for the previous deployment, and instead switched to gradle shadow jar plugin (https://imperceptiblethoughts.com/shadow/getting-started/#default-java-groovy-tasks).
+
+The following additional gradle changes were needed to enable communication between the custom runtime and Lambda, before building the jar.
+
+* A runtime dependency on `com.amazonaws:aws-lambda-java-runtime-interface-client:2.1.1`
+* A Manifest file within the built jar declaring that the `Main-Class` is `com.amazonaws.services.lambda.runtime.api.client.AWSLambda`
+
+==== Define the Java Runtime you want to use
+I copied the Dockerfile and build.sh files from the reference blog.
+
+Then iterated over it to make it build successfully for Java 11 and Gradle.
+
+NOTE: Amazon Corretto has some well-defined documents for how to consume their distributions on different platforms like Linux, Mac, etc. This was helpful when building the Dockerfile. https://docs.aws.amazon.com/corretto/
+
+==== Prepare bootstrap file
+To create a custom runtime, you need the custom runtime entry point, an executable file, named `bootstrap`
+
+You can define the optimized instructions to run your jar using the runtime you prepared in this executable.
+
+The following example shows the bootstrap file I used at this stage.
+
+----
+#!/bin/sh
+
+$LAMBDA_TASK_ROOT/jre11-slim/bin/java \
+ --add-opens java.base/java.util=ALL-UNNAMED \
+ -XX:+TieredCompilation \
+ -XX:TieredStopAtLevel=1 \
+ -XX:+UseSerialGC \
+ -jar json-path-api-1.0-SNAPSHOT-all.jar "$_HANDLER"
+----
+
+==== Bundle the above artifacts together in a zip
+This is defined in the Dockerfile.
+
+==== Deploy the Lambda
+At this point I updated the Lambda template to declare that this was a custom runtime, and deployed and tested the Lambda.
+
+Checkpoint 2 complete. Commit here: https://github.com/psumiya/json-path-api/commit/c8f75fdf1552d15adae6cc7df11119b893863c06[c8f75fd]
+
+==== Arm64
+During these experiments, I wanted to see if the custom runtime worked with the arm64 architecture.
+
+I tried it at the first instance I got, that is, after I had successfully deployed the custom Java 11 runtime.
+
+[source,yaml]
+----
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that wraps the JsonPath Api.
+
+Resources:
+  JsonPathLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: JsonPathEvaluatorArm64
+      CodeUri: s3://sumiya/lambdas/json-path/json-path-arm64.zip
+      Architectures:
+        - arm64
+      Handler: com.sumiya.Handler::handleRequest
+      Runtime: provided.al2
+      Description: Java function
+      MemorySize: 512
+      Timeout: 10
+      Policies:
+        - AWSLambdaBasicExecutionRole
+----
+
+The deployment succeeded but the Lambda invocation failed with following errors.
+
+[source, json]
+{
+  "errorType": "Runtime.ExitError",
+  "errorMessage": "RequestId: 737ffec8-925f-4a7e-85fe-a996ed880e70 Error: Runtime exited with error: exit status 126"
+}
+
+[source,bash]
+/var/task/bootstrap: line 4: /var/task/jre11-slim/bin/java: cannot execute binary file
+/var/task/bootstrap: line 4: /var/task/jre11-slim/bin/java: cannot execute binary file
+START RequestId: 737ffec8-925f-4a7e-85fe-a996ed880e70 Version: $LATEST
+RequestId: 737ffec8-925f-4a7e-85fe-a996ed880e70 Error: Runtime exited with error: exit status 126
+Runtime.ExitError
+END RequestId: 737ffec8-925f-4a7e-85fe-a996ed880e70
+REPORT RequestId: 737ffec8-925f-4a7e-85fe-a996ed880e70	Duration: 5.36 ms	Billed Duration: 6 ms	Memory Size: 512 MB	Max Memory Used: 3 MB
+
+I backed out of the change and continued with the rest of the changes.
+
+=== Part IV
+The next step was to set up Java 19 but with a customized runtime.
+
+I dare say this was the easiest step since I only needed to change the JDK distro in Dockerfile.
+
+However, just for fun, I reverted the Handler string to now again be a text block!
+
+Deployed and tested the lambda successfully.
+
+Checkpoint 3 complete. Commit here: https://github.com/psumiya/json-path-api/commit/27dfd80bddb12b9ae7c1ef837148f651f34657a3[27dfd80]
+
+== Summary
+For each of the checkpoints, I had a commit, and the diffs on that may tell you a better story on how the changes progressed.
+
+https://github.com/psumiya/json-path-api/commits/main (see Commits on Dec 30, 2022)
+
+I enjoyed running this series of experiments. There is some more areas to explore, for example, using a lambda layer for the custom runtime, why the arm64 deployment fails, comparing the performance of each of the different variations, but that is for some other time.
+
+Hope you enjoyed reading this too!
+
+'''
+
+include::footer.adoc[]
