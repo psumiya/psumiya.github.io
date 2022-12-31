@@ -16,6 +16,8 @@ This is a collection of small articles regarding software engineering I have lea
 
 == Posts
 
+link:aws-lambda-custom-runtime-with-java-and-gradle.html[Custom Java Runtime for AWS Lambda]:: Build a slimmed and enhanced JRE and use it as a custom runtime for AWS Lambda, using gradle and docker
+
 link:when-not-to-use-kubernetes.html[When Not to Use Kubernetes]:: Some thoughts after having used Kubernetes in production.
 
 link:success-for-teams.html[Thoughts on Setting up Software Engineering Teams for Success]:: Opinionated article on how to setup software engineering teams for success.
