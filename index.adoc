@@ -30,6 +30,18 @@ link:reactive-microservice-frameworks-for-jvm-2021.html[Reactive Microservice Fr
 
 link:other.html[View Other Posts]
 
+== About
+
+=== Social
+
+* https://hachyderm.io/@sumiya[Mastodon - hachyderm.io/@sumiya, window=read-later]
+* https://www.linkedin.com/in/sumiya[LinkedIn - sumiya,window=read-later]
+
+=== Professional
+
+* Since 2021 @ Nike
+* 2008 - 2020 @ various companies
+
 '''
 
 include::footer.adoc[]
