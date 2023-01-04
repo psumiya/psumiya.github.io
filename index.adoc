@@ -32,9 +32,10 @@ link:other.html[View Other Posts]
 
 == About
 
-=== Social
+=== Find me on:
 
 * https://hachyderm.io/@sumiya[Mastodon - hachyderm.io/@sumiya, window=read-later]
+* https://github.com/psumiya[Github - psumiya, window=read-later]
 * https://www.linkedin.com/in/sumiya[LinkedIn - sumiya,window=read-later]
 
 === Professional
