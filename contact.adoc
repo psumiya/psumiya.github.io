@@ -1,2 +1,0 @@
-:nofooter:
-link:https://www.linkedin.com/in/sumiya[LinkedIn]
